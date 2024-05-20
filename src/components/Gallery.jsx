@@ -2,6 +2,8 @@
 import { Environment } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import { Suspense, useRef } from "react"
+import Controls from "./Controls"
+import Model from "./Model"
 
 
 const Gallery = ({ isMobile=false }) => {
@@ -12,6 +14,11 @@ const Gallery = ({ isMobile=false }) => {
       <Canvas ref={canvasRef} shadows={isMobile?false:true} >
         <Suspense>
           <Environment preset="warehouse" environmentIntensity={1} />
+
+          <Controls />
+
+          <Model isMobile={isMobile} />
+
         </Suspense>
       </Canvas>
     </div>
