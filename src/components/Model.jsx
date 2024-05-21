@@ -2,12 +2,12 @@
 /* eslint-disable react/no-unknown-property */
 import { useGLTF } from "@react-three/drei"
 import glb from "../assets/Gallery.glb?url"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
-import { Vector2, Vector3, Euler, Raycaster } from "three"
+import { Vector2, Raycaster } from "three"
+import Pictures from "./Pictures"
 
-
-const Model = ({ area, setArea }) => {
+const Model = ({ area, setArea, setInfo }) => {
   const { scene, nodes } = useGLTF(glb)
 
   const { camera } = useThree()
@@ -18,8 +18,14 @@ const Model = ({ area, setArea }) => {
 
   const doorMorph = useRef(null)
 
+  // Initial setup
   useEffect(()=>{
     console.log(nodes)
+
+    Object.keys(nodes).forEach( nodeName => {
+      const node = [nodeName]
+      if (nodeName.includes("room")) node.receiveShadow = true
+    })
   }, [nodes])
 
   // Raycasting from cursor
@@ -69,8 +75,8 @@ const Model = ({ area, setArea }) => {
     if (firstHit.name == "doormain") {
       pointer = true
       if (clicked) {
-        if (area == "room0") setArea("entrance")
-        else setArea("room0")
+        if (area == "entrance") setArea("room0")
+        else setArea("entrance")
         doorMorph.current = {
           door: "doormain",
           name: "open",
@@ -116,6 +122,8 @@ const Model = ({ area, setArea }) => {
   return (
     <>
       <primitive object={scene} dispose={null} />
+
+      <Pictures nodes={nodes} area={area} setArea={setArea} setInfo={setInfo} />
     </>
   )
 }
