@@ -10,6 +10,7 @@ const LookControls = ({ enabled=true, lockXAxis=false, lockYAxis=false, speedX=1
 
   useEffect(() => {
     const onMouseDown = (event) => {
+      if (!enabled) return
       setIsDragging(true);
       setLastMousePosition([event.clientX, event.clientY]);
     };
