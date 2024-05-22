@@ -11,13 +11,18 @@ import Characters from "./Characters"
 const Gallery = ({ isMobile=false }) => {
   const canvasRef = useRef()
   const [area, setArea] = useState("entrance")
-  const [info, setInfo] = useState(null)
+  const [info, setInfo] = useState([
+    "Hi I'm Sean and welcome to my gallery",
+    "Click the door to enter and click the pictures to view them. Click once more to interact with them.",
+    "Have fun!"
+  ])
   
   return (
     <div className="gallery-container">
       <Canvas 
         ref={canvasRef} 
         shadows={isMobile?false:true}
+        dpr={isMobile?0.7:2}
         camera={{ position: [14,2,7] }}
       >
         <Suspense fallback={null}>

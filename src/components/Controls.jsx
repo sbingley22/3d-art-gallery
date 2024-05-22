@@ -103,7 +103,7 @@ const areas = {
     lookable: true
   },
   "frame14": {
-    pos: [1, 1.6, 16],
+    pos: [1, 1.6, 14.5],
     rot: [0, -Math.PI/2, 0],
     lookable: true
   },
@@ -113,12 +113,12 @@ const areas = {
     lookable: true
   },
   "frame16": {
-    pos: [-5, 1.6, 16],
+    pos: [-5.25, 1.6, 16],
     rot: [0, Math.PI, 0],
     lookable: true
   },
   "frame17": {
-    pos: [-6, 1.6, 14.5],
+    pos: [-6, 1.6, 14.1],
     rot: [0, Math.PI/2, 0],
     lookable: true
   },

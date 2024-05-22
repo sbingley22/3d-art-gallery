@@ -12,8 +12,9 @@ const Characters = () => {
     console.log("Characters: ", nodes)
     console.log(names)
 
-    actions["Action"].play()
-    actions["Action.001"].play()
+    actions["M1Idle"].play()
+    actions["W1Idle"].play()
+    actions["SeanWave"].play()
 
     Object.keys(nodes).forEach( nodeName => {
       const node = nodes[nodeName]
@@ -24,7 +25,20 @@ const Characters = () => {
       }
     })
 
-  }, [])
+  }, [actions, names, nodes])
+
+  // Mixer
+  useEffect(() => {
+    actions["SeanWave"].clampWhenFinished = true
+    actions["SeanWave"].repetitions = 2
+
+    mixer.addEventListener("finished", (e) => {
+      if (e.action == "SeanWave") {
+        actions["SeanIdle"].play()
+      }
+      console.log(e.action)
+    })
+  }, [mixer, actions])
 
   return (
     <>

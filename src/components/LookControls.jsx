@@ -19,40 +19,71 @@ const LookControls = ({ enabled=true, lockXAxis=false, lockYAxis=false, speedX=1
       if (!enabled) return
       
       if (isDragging) {
-        const deltaX = event.clientX - lastMousePosition[0];
-        const deltaY = event.clientY - lastMousePosition[1];
-        setLastMousePosition([event.clientX, event.clientY]);
+        const deltaX = event.clientX - lastMousePosition[0]
+        const deltaY = event.clientY - lastMousePosition[1]
+        setLastMousePosition([event.clientX, event.clientY])
 
         camera.rotation.order = 'YXZ';
-        if (!lockYAxis) camera.rotation.y -= deltaX * 0.005 * speedY;
+        if (!lockYAxis) camera.rotation.y -= deltaX * 0.005 * speedY
         if (!lockXAxis) {
-          camera.rotation.x -= deltaY * 0.005 * speedX;
+          camera.rotation.x -= deltaY * 0.005 * speedX
           camera.rotation.x = Math.max(
             minX,
             Math.min(maxX, camera.rotation.x)
-          );
+          )
         }
+        camera.rotation.z = 0
       }
-    };
+    }
 
     const onMouseUp = () => {
-      setIsDragging(false);
-    };
+      setIsDragging(false)
+    }
 
     const onMouseLeave = () => {
-      setIsDragging(false);
+      setIsDragging(false)
+    }
+
+    const onTouchStart = (event) => {
+      if (!enabled) return;
+      setIsDragging(true);
+      setLastMousePosition([event.touches[0].clientX, event.touches[0].clientY]);
     };
 
-    gl.domElement.addEventListener("mousedown", onMouseDown);
-    gl.domElement.addEventListener("mousemove", onMouseMove);
-    gl.domElement.addEventListener('mouseup', onMouseUp);
-    gl.domElement.addEventListener('mouseleave', onMouseLeave);
+    const onTouchMove = (event) => {
+      if (!enabled || !isDragging) return;
+
+      const deltaX = event.touches[0].clientX - lastMousePosition[0];
+      const deltaY = event.touches[0].clientY - lastMousePosition[1];
+      setLastMousePosition([event.touches[0].clientX, event.touches[0].clientY]);
+
+      camera.rotation.order = 'YXZ';
+      if (!lockYAxis) camera.rotation.y -= deltaX * 0.005 * speedY;
+      if (!lockXAxis) {
+        camera.rotation.x -= deltaY * 0.005 * speedX;
+        camera.rotation.x = Math.max(minX, Math.min(maxX, camera.rotation.x));
+      }
+      camera.rotation.z = 0;
+    }
+
+    gl.domElement.addEventListener("mousedown", onMouseDown)
+    gl.domElement.addEventListener("mousemove", onMouseMove)
+    gl.domElement.addEventListener('mouseup', onMouseUp)
+    gl.domElement.addEventListener('mouseleave', onMouseLeave)
+    gl.domElement.addEventListener("touchstart", onTouchStart)
+    gl.domElement.addEventListener("touchmove", onTouchMove)
+    gl.domElement.addEventListener("touchend", onMouseUp)
+    gl.domElement.addEventListener('touchcancel', onMouseLeave)
 
     return () => {
-      gl.domElement.removeEventListener("mousedown", onMouseDown);
-      gl.domElement.removeEventListener("mousemove", onMouseMove);
-      gl.domElement.removeEventListener('mouseup', onMouseUp);
-      gl.domElement.removeEventListener('mouseleave', onMouseLeave);
+      gl.domElement.removeEventListener("mousedown", onMouseDown)
+      gl.domElement.removeEventListener("mousemove", onMouseMove)
+      gl.domElement.removeEventListener('mouseup', onMouseUp)
+      gl.domElement.removeEventListener('mouseleave', onMouseLeave)
+      gl.domElement.removeEventListener("touchstart", onTouchStart)
+      gl.domElement.removeEventListener("touchmove", onTouchMove)
+      gl.domElement.removeEventListener('touchend', onMouseUp)
+      gl.domElement.removeEventListener('touchcancel', onMouseLeave)
     };
 
   }, [isDragging, lastMousePosition, camera, gl, enabled, lockYAxis, lockXAxis, speedY, speedX, minX, maxX]);
