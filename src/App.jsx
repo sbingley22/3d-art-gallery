@@ -11,6 +11,7 @@ function App() {
 
     const handleResize = () => {
       setIsMobile(mediaQuery.matches)
+      console.log("isMobile: ", mediaQuery.matches)
     }
 
     mediaQuery.addEventListener('change', handleResize)

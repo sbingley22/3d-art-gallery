@@ -3,16 +3,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { useVideoTexture } from '@react-three/drei'
 
-const Vid = ({ file, frame, position, rotation, scale, area, setArea, setInfo }) => {
+const Vid = ({ file, frame, description, position, rotation, scale, area, setArea, setInfo, pauseAll, setPauseAll }) => {
   const meshRef = useRef()
-  const texture = useVideoTexture(file)
+  const texture = useVideoTexture(file, {
+    autoplay: false,
+    loop: true,
+  })
 
   const [aspect, setAspect] = useState(1)
 
   useEffect(() => {
     if (texture) {
-      texture.source.data.loop = true
-      texture.source.data.play()
+      //texture.source.data.loop = true
+      //texture.source.data.pause()
       
       // Calculate the aspect ratio once the video metadata is loaded
       const handleLoadedMetadata = () => {
@@ -33,10 +36,28 @@ const Vid = ({ file, frame, position, rotation, scale, area, setArea, setInfo })
     const newArea = 'frame'+frame
     if (area == newArea) {
       //console.log(texture)
-      texture.source.data.muted = !texture.source.data.muted
+      if (texture.source.data.paused) {
+        texture.source.data.muted = false
+        texture.source.data.play()
+      } else {
+        texture.source.data.muted = true
+        texture.source.data.pause()
+      }
+    } else {
+      setPauseAll(!pauseAll)
+      setInfo(description)
     }
     setArea(newArea)
   }
+
+  useEffect(()=>{
+    if (!texture) return
+    
+    texture.source.data.muted = true
+    texture.source.data.pause()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pauseAll])
 
   return (
     <mesh 

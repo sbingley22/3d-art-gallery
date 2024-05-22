@@ -16,36 +16,117 @@ const areas = {
     rot: [0, Math.PI/2,0],
     lookable: true
   },
+  "room1": {
+    pos: [-4,1,-1],
+    rot: [0, Math.PI/2,0],
+    lookable: true
+  },
+  "room2": {
+    pos: [-2.5,1,10],
+    rot: [0, Math.PI/2,0],
+    lookable: true
+  },
+
+  // room 0
   "frame0": {
-    pos: [5,2,-2],
+    pos: [5, 1.6, -2],
     rot: [0, -Math.PI/2, 0],
     lookable: true
   },
   "frame1": {
-    pos: [5,2,-3],
+    pos: [5, 1.6, -3],
     rot: [0, 0, 0],
     lookable: true
   },
   "frame2": {
-    pos: [1,2,-3],
+    pos: [1, 1.6, -3],
     rot: [0, 0, 0],
     lookable: true
   },
   "frame3": {
-    pos: [2,2,-4],
+    pos: [2, 1.6, -4],
     rot: [0, Math.PI/2, 0],
     lookable: true
   },
   "frame4": {
-    pos: [2,2,2],
+    pos: [2, 1.6, 2],
     rot: [0, Math.PI/2, 0],
     lookable: true
   },
   "frame5": {
-    pos: [3,2,1],
+    pos: [3,  1.6, 1],
     rot: [0, Math.PI, 0],
     lookable: true
-  }
+  },
+
+  // room 1
+  "frame6": {
+    pos: [-3,  1.6, -6.1],
+    rot: [0, -Math.PI/2, 0],
+    lookable: true
+  },
+  "frame7": {
+    pos: [-3, 1.6, 3.2],
+    rot: [0, -Math.PI/2, 0],
+    lookable: true
+  },
+  "frame8": {
+    pos: [-4.6, 1.6, -7.9],
+    rot: [0, 0, 0],
+    lookable: true
+  },
+  "frame9": {
+    pos: [-6,  1.6, -6.1],
+    rot: [0, Math.PI/2, 0],
+    lookable: true
+  },
+  "frame10": {
+    pos: [-6, 1.6, -2],
+    rot: [0, Math.PI/2, 0],
+    lookable: true
+  },
+  "frame11": {
+    pos: [-6, 1.6, 3.5],
+    rot: [0, Math.PI/2, 0],
+    lookable: true
+  },
+  "frame12": {
+    pos: [-6,  1.6, 3.5],
+    rot: [0, Math.PI, 0],
+    lookable: true
+  },
+
+  // room 2
+  "frame13": {
+    pos: [1, 1.6, 9.5],
+    rot: [0, -Math.PI/2, 0],
+    lookable: true
+  },
+  "frame14": {
+    pos: [1, 1.6, 16],
+    rot: [0, -Math.PI/2, 0],
+    lookable: true
+  },
+  "frame15": {
+    pos: [-1, 1.6, 16],
+    rot: [0, Math.PI, 0],
+    lookable: true
+  },
+  "frame16": {
+    pos: [-5, 1.6, 16],
+    rot: [0, Math.PI, 0],
+    lookable: true
+  },
+  "frame17": {
+    pos: [-6, 1.6, 14.5],
+    rot: [0, Math.PI/2, 0],
+    lookable: true
+  },
+  "frame18": {
+    pos: [-6, 1.6, 9.5],
+    rot: [0, Math.PI/2, 0],
+    lookable: true
+  },
 }
 
 const targetPosition = new Vector3()

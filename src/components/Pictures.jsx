@@ -65,19 +65,121 @@ const pics = [
     `],
     scale: 2,
   },
-  // {
-  //   id: uuidv4(),
-  //   frame: 5,
-  //   file: "vid (1).mp4",
-  //   type: "vid",
-  //   description: ["arrrhghg"],
-  //   scale: 2,
-  // },
+
+  // Room 2
+  {
+    id: uuidv4(),
+    frame: 6,
+    file: "Signalis.webm",
+    type: "vid",
+    description: ["Signalis"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 7,
+    file: "Oldboy.webm",
+    type: "vid",
+    description: ["Oldboy", "In a lonely place"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 8,
+    file: "Therealfolkblues.webm",
+    type: "vid",
+    description: ["Cowboy Bebop", "The Real Folk Blues"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 9,
+    file: "Ultimatemuscle.webm",
+    type: "vid",
+    description: ["Ultimate Muscle Short"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 10,
+    file: "Nkhandshake.webm",
+    type: "vid",
+    description: ["Natural Killer Cell Handshake"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 11,
+    file: "Leakgut.webm",
+    type: "vid",
+    description: ["Leaky Gut"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 12,
+    file: "Plaqueformation.webm",
+    type: "vid",
+    description: ["Plaque Formation"],
+    scale: 2,
+  },
+
+  // // Room 3
+  {
+    id: uuidv4(),
+    frame: 13,
+    file: "Wzdroppingin.webm",
+    type: "vid",
+    description: ["Warzone Dropping In"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 14,
+    file: "Wzenemyfriend.webm",
+    type: "vid",
+    description: ["Warzone Enemy of My Enemy"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 15,
+    file: "Wzparkshame.webm",
+    type: "vid",
+    description: ["Warzone Outplayed"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 16,
+    file: "Whitbygraveyard Shift.webm",
+    type: "vid",
+    description: ["Whitby Goth Weekend"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 17,
+    file: "Whitbysaycheese.webm",
+    type: "vid",
+    description: ["Whitby Goth Weekend"],
+    scale: 2,
+  },
+  {
+    id: uuidv4(),
+    frame: 18,
+    file: "Arcane.webm",
+    type: "vid",
+    description: ["Arcane Opening"],
+    scale: 2,
+  },
 ]
 
 const Pictures = ({ nodes, area, setArea, setInfo }) => {
   const [frames, setFrames] = useState([])
+  const [pauseAll, setPauseAll] = useState(true)
 
+  // Initial setup
   useEffect(() => {
     const tempFrames = []
 
@@ -130,6 +232,8 @@ const Pictures = ({ nodes, area, setArea, setInfo }) => {
           area={area}
           setArea={setArea}
           setInfo={setInfo}
+          pauseAll={pauseAll}
+          setPauseAll={setPauseAll}
         />
       ))}
     </>

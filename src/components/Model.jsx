@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unknown-property */
-import { useGLTF } from "@react-three/drei"
+import { BakeShadows, useGLTF } from "@react-three/drei"
 import glb from "../assets/Gallery.glb?url"
 import { useEffect, useRef } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
@@ -20,12 +20,48 @@ const Model = ({ area, setArea, setInfo }) => {
 
   // Initial setup
   useEffect(()=>{
-    console.log(nodes)
+    Object.keys(nodes).forEach( nodeName => {
+      const node = nodes[nodeName]
+      node.castShadow = true
+      //node.receiveShadow = true
+    })
 
     Object.keys(nodes).forEach( nodeName => {
-      const node = [nodeName]
-      if (nodeName.includes("room")) node.receiveShadow = true
+      const node = nodes[nodeName]
+
+      if (nodeName.includes("room")) {
+        node.receiveShadow = true
+        node.castShadow = false
+        node.children.forEach( child => {
+          child.receiveShadow = true
+          child.castShadow = false
+        })
+      } else if (nodeName == "ground") {
+        node.receiveShadow = true
+        node.castShadow = false
+      } else if (nodeName == "outer-wall") {
+        node.receiveShadow = true
+        node.castShadow = false
+      } else if (nodeName.includes("Light")) {
+        node.intensity = 1
+        node.castShadow = true
+        node.receiveShadow = false
+        if (node.type == "DirectionalLight") {
+          node.intensity = 1
+          node.shadow.camera.left = -10
+          node.shadow.camera.right = 10
+          node.shadow.mapSize.x = 1024
+          node.shadow.mapSize.y = 1024
+        } else if (node.type == "PointLight") {
+          node.intensity = 10
+          node.shadow.camera.left = -40
+          node.shadow.camera.right = 40
+        }
+      }
+
     })
+
+    console.log(nodes)
   }, [nodes])
 
   // Raycasting from cursor
@@ -68,9 +104,10 @@ const Model = ({ area, setArea, setInfo }) => {
   }, [camera, scene, area])
 
   const handleRayHit = (intersects, clicked = false) => {
-
     let pointer = false
     const firstHit = intersects[0].object
+
+    const room1Areas = ["room1", "frame6", "frame7", "frame8", "frame9", "frame10", "frame11", "frame12"]
 
     if (firstHit.name == "doormain") {
       pointer = true
@@ -84,6 +121,18 @@ const Model = ({ area, setArea, setInfo }) => {
           rate: 0.9,
           pause: 1
         }
+      }
+    } else if (firstHit.name == "door000") {
+      pointer = true
+      if (clicked) {
+        if (room1Areas.includes(area)) setArea("room0")
+        else setArea("room1")
+      }
+    } else if (firstHit.name == "door001") {
+      pointer = true
+      if (clicked) {
+        if (room1Areas.includes(area)) setArea("room2")
+        else setArea("room1")
       }
     }
 
@@ -124,6 +173,8 @@ const Model = ({ area, setArea, setInfo }) => {
       <primitive object={scene} dispose={null} />
 
       <Pictures nodes={nodes} area={area} setArea={setArea} setInfo={setInfo} />
+
+      <BakeShadows />
     </>
   )
 }

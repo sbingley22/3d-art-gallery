@@ -6,6 +6,7 @@ import Controls from "./Controls"
 import Model from "./Model"
 import Options from "./Options"
 import InfoBox from "./InfoBox"
+import Characters from "./Characters"
 
 const Gallery = ({ isMobile=false }) => {
   const canvasRef = useRef()
@@ -19,12 +20,14 @@ const Gallery = ({ isMobile=false }) => {
         shadows={isMobile?false:true}
         camera={{ position: [14,2,7] }}
       >
-        <Suspense>
+        <Suspense fallback={null}>
           <Environment preset="warehouse" environmentIntensity={1} />
 
           <Controls area={area} />
 
           <Model isMobile={isMobile} area={area} setArea={setArea} setInfo={setInfo} />
+
+          <Characters />
 
         </Suspense>
       </Canvas>
